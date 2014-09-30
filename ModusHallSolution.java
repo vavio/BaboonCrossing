@@ -40,6 +40,7 @@ public class ModusHallSolution {
 		public void execute() throws InterruptedException {
 
 			heathenTurn.acquire();
+			state.enterHeathen();
 			heathenTurn.release();
 
 			mutex.acquire();
@@ -101,8 +102,9 @@ public class ModusHallSolution {
 		public void execute() throws InterruptedException {
 
 			prudeTurn.acquire();
-			prudeTurn.release();
-
+			state.enterPrude();
+			prudeTurn.release();			
+			
 			mutex.acquire();
 			prudes++;
 
@@ -162,7 +164,7 @@ public class ModusHallSolution {
 	public static void run() {
 		try {
 			int numRuns = 1;
-			int numScenarios = 300;
+			int numScenarios = 200;
 
 			HashSet<Thread> threads = new HashSet<Thread>();
 
