@@ -54,27 +54,23 @@ public class BaboonCrossingState extends AbstractState {
 			log(left.incrementWithMax(false), "LeftBaboon entering");
 		} else if (baboon instanceof BaboonRight) {
 			log(right.incrementWithMax(false), "RightBaboon entering");
-		} else {
-			// che vidime
 		}
 		Switcher.forceSwitch(10);
 	}
 
 	public void cross(TemplateThread baboon) {
-		synchronized (this) {
-			if (baboon instanceof BaboonLeft) {
-				if (state == StateRope.LEFT_PASSING)
-					log(crossing.incrementWithMax(false), "LeftBaboon crossing");
-				else
-					logException(new PointsException(LEFT_NOT_ALLOWED_POINTS,
-							LEFT_NOT_ALLOWED));
-			} else if (baboon instanceof BaboonRight) {
-				if (state == StateRope.RIGHT_PASSING)
-					log(crossing.incrementWithMax(false), "Right crossing");
-				else
-					logException(new PointsException(RIGHT_NOT_ALLOWED_POINTS,
-							RIGHT_NOT_ALLOWED));
-			}
+		if (baboon instanceof BaboonLeft) {
+			if (state == StateRope.LEFT_PASSING)
+				log(crossing.incrementWithMax(false), "LeftBaboon crossing");
+			else
+				logException(new PointsException(LEFT_NOT_ALLOWED_POINTS,
+						LEFT_NOT_ALLOWED));
+		} else if (baboon instanceof BaboonRight) {
+			if (state == StateRope.RIGHT_PASSING)
+				log(crossing.incrementWithMax(false), "Right crossing");
+			else
+				logException(new PointsException(RIGHT_NOT_ALLOWED_POINTS,
+						RIGHT_NOT_ALLOWED));
 		}
 		Switcher.forceSwitch(10);
 		log(crossing.decrementWithMin(false), null);
