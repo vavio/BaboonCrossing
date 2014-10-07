@@ -27,7 +27,7 @@ public class BaboonCrossingSolution {
 		mutexLeft = new Semaphore(1);
 		mutexRight = new Semaphore(1);
 		turnStyle = new Semaphore(1);
-		onRope = new Semaphore(5);
+		onRope = new Semaphore(6);
 		left = right = 0;
 	}
 
