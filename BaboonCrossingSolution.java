@@ -46,7 +46,7 @@ public class BaboonCrossingSolution {
 			if (left == 1)
 			{
 				mutexRope.acquire();
-				state.leftRules();
+				state.leftPassing();
 			}
 			mutexLeft.release();
 			turnStyle.release();
@@ -81,7 +81,7 @@ public class BaboonCrossingSolution {
 			if (right == 1)
 			{
 				mutexRope.acquire();
-				state.rightRules();
+				state.rightPassing();
 			}
 			mutexRight.release();
 			turnStyle.release();
@@ -103,15 +103,15 @@ public class BaboonCrossingSolution {
 	static BaboonCrossingState state = new BaboonCrossingState();
 
 	public static void main(String[] args) {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 1; i++) {
 			run();
 		}
 	}
 
 	public static void run() {
 		try {
-			int numRuns = 1;
-			int numScenarios = 300;
+			int numRuns = 10;
+			int numScenarios = 500;
 
 			HashSet<Thread> threads = new HashSet<Thread>();
 
