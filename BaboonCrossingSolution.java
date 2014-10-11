@@ -53,7 +53,7 @@ public class BaboonCrossingSolution {
 
 			onRope.acquire();
 			state.cross(this);
-			
+			onRope.release();
 
 			mutexLeft.acquire();
 			left--;
@@ -62,7 +62,6 @@ public class BaboonCrossingSolution {
 				mutexRope.release();
 			}
 			
-			onRope.release();
 			mutexLeft.release();
 		}
 
