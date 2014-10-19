@@ -1,5 +1,3 @@
-package mk.ukim.finki.os.synchronization.problems.babooncrossing;
-
 import mk.ukim.finki.os.synchronization.AbstractState;
 import mk.ukim.finki.os.synchronization.BoundCounterWithRaceConditionCheck;
 import mk.ukim.finki.os.synchronization.PointsException;
@@ -8,7 +6,12 @@ import mk.ukim.finki.os.synchronization.TemplateThread;
 import mk.ukim.finki.os.synchronization.problems.babooncrossing.BaboonCrossingSolution.BaboonLeft;
 import mk.ukim.finki.os.synchronization.problems.babooncrossing.BaboonCrossingSolution.BaboonRight;
 
-;
+/**
+ * 
+ * @author Valentin Ambaroski
+ * @author Vladica Jovanovski
+ * 
+ */
 
 public class BaboonCrossingState extends AbstractState {
 
