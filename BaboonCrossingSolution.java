@@ -1,7 +1,3 @@
-// 
-// Eve ja verzijata na solution-ot so povikuvanja na fuknciite
-// Se mislam dali da da imame i edna funkcija plus za da bidi state.neutral()
-
 package mk.ukim.finki.os.synchronization.problems.babooncrossing;
 
 import java.util.Date;
@@ -12,11 +8,26 @@ import java.util.concurrent.Semaphore;
 import mk.ukim.finki.os.synchronization.ProblemExecution;
 import mk.ukim.finki.os.synchronization.TemplateThread;
 
+/**
+ * 
+ * @author Valentin Ambaroski
+ * @author Vladica Jovanovski
+ * 
+ */
+
 public class BaboonCrossingSolution {
+	
+	//Kontrola na jazheto od koja strana pominuvaat
 	static Semaphore mutexRope;
+	
+	//Kontrola za broj na majmuni koi chekaat levo i desno
 	static Semaphore mutexLeft;
 	static Semaphore mutexRight;
+	
+	//Kontrola na majmuni za vlez vo chekalnata
 	static Semaphore turnStyle;
+	
+	//Kontrola na brojot na majmuni koi se kacheni na jazhe
 	static Semaphore onRope;
 
 	static int left;
