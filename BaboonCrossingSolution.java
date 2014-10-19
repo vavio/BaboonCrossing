@@ -17,17 +17,17 @@ import mk.ukim.finki.os.synchronization.TemplateThread;
 
 public class BaboonCrossingSolution {
 	
-	//Kontrola na jazheto od koja strana pominuvaat
+	// Kontrola na jazheto od koja strana pominuvaat
 	static Semaphore mutexRope;
 	
-	//Kontrola za broj na majmuni koi chekaat levo i desno
+	// Muteksi za promenlivite left i right levo i desno
 	static Semaphore mutexLeft;
 	static Semaphore mutexRight;
 	
-	//Kontrola na majmuni za vlez vo chekalnata
+	// Kontrola na majmuni za vlez vo chekalnata
 	static Semaphore turnStyle;
 	
-	//Kontrola na brojot na majmuni koi se kacheni na jazhe
+	// Kontrola na brojot na majmuni koi se kacheni na jazhe
 	static Semaphore onRope;
 
 	static int left;
@@ -38,7 +38,7 @@ public class BaboonCrossingSolution {
 		mutexLeft = new Semaphore(1);
 		mutexRight = new Semaphore(1);
 		turnStyle = new Semaphore(1);
-		onRope = new Semaphore(6);
+		onRope = new Semaphore(5);
 		left = right = 0;
 	}
 
@@ -50,18 +50,37 @@ public class BaboonCrossingSolution {
 
 		@Override
 		public void execute() throws InterruptedException {
+			
+			// Kontrola za izgladnuvanje.
+			// So ovaj mutex se zabranuva vlez na majmuni od ist tip
+			// bidejkiposle odredeno vreme che dojdi majmun od sprotivnata strana
+			// ovaj mutex che go pomini bidejki e osloboden od majmunite koi chekaat
+			// za da preminat na jazheto i se zaglaveni na onRope.acquire()
+			// Majunot od sprotivnata strana che zaglavi na mutexRope.acquire()
+			// I so toa nema da se dozvoli vlez na majmuni od istata strana.
+			// Koga che preminat site majmuni koi chekaat za premin preku jazheto
+			// togash idi na red da preminuvaat majmuni od sprotivnata strana.
 			turnStyle.acquire();
+			
+			// vlez na majmin
 			state.enter(this);
+			
+			//
 			mutexLeft.acquire();
 			left++;
+			// Samo prviot majmun ja smenuva sostojbata na jazheto
 			if (left == 1)
 			{
 				mutexRope.acquire();
 				state.leftPassing();
 			}
+			
 			mutexLeft.release();
+			
+			// Ko ova se dozvoluva nekoj nareden majmun da dojdi od bilo koja strana
 			turnStyle.release();
 
+			// Kontrola na brojot na majmuni na jazheto
 			onRope.acquire();
 			state.cross(this);
 			onRope.release();
@@ -69,6 +88,7 @@ public class BaboonCrossingSolution {
 			mutexLeft.acquire();
 			left--;
 			state.leave(this);
+			// Posledniot majmun od redicata koja shto cheka go osloboduva jazheto
 			if (left == 0) {
 				mutexRope.release();
 			}
@@ -84,6 +104,7 @@ public class BaboonCrossingSolution {
 			super(numRuns);
 		}
 
+		// Istiot koe e prepishan od BaboonLeft klasata so promena na left vo right i obratno
 		@Override
 		public void execute() throws InterruptedException {
 			turnStyle.acquire();
